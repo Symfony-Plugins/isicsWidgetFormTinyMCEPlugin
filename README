@@ -1,0 +1,55 @@
+= isicsWidgetFormTinyMCE plugin =
+
+You miss TinyMce since you've started using symfony 1.1? No matter, this widget is very easy to use and lets you a lot of flexibility.
+
+== Installation ==
+
+  * First, download the last version of TinyMCE here: http://tinymce.moxiecode.com/download.php and place tiny_mce folder in your web/js directory.
+
+  * Install the plugin
+
+    {{{
+      symfony plugin-install http://plugins.symfony-project.com/isicsWidgetFormTinyMCEPlugin
+    }}}
+
+  * Clear your cache:
+
+    {{{
+      symfony cache:clear
+    }}}
+
+== Usage ==
+
+  You can now use the new widget for building your form:
+  {{{
+    $this->setWidgets(array(
+      'my_rich_text' => new isicsWidgetFormTinyMCE(array('tiny_options' => array('theme' => 'advanced'))
+    ));
+  }}}
+  
+  As you can see, isicsWidgetFormTinyMCE add the option `tiny_options` wich is an array off the Tiny Options (look at the TinyMCE wiki for help).
+
+  If you're using the sames options many times, why don't use an app setting?
+  Edit your app.yml and add a tiny_mce_default param:
+  {{{
+    tiny_mce:
+      default:
+        theme: advanced
+  }}}
+  
+  Your can define your own param too:
+  {{{
+    tiny_mce:
+      my_settings:
+        theme: advanced
+        theme_advanced_buttons1: 'bold, italic'
+  }}}
+
+  And in your PHP code:
+  {{{
+    $this->setWidgets(array(
+      new isicsWidgetFormTinyMCE(array(
+        'tiny_options' => sfConfig::get('app_tiny_mce_my_settings', array())
+      )
+    ));
+  }}}
