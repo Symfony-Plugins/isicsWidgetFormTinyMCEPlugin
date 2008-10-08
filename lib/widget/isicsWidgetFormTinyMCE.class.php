@@ -27,7 +27,7 @@ class isicsWidgetFormTinyMCE extends sfWidgetFormTextarea
    **/    
 	protected function configure($options = array(), $attributes = array())
 	{
-		$this->addOption('tiny_options', sfConfig::get('tiny_mce_default', array()));
+		$this->addOption('tiny_options', sfConfig::get('app_tiny_mce_default', array()));
 	}
 	
   /**

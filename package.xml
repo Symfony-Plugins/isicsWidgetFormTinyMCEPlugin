@@ -10,10 +10,10 @@
   <email>contact@isics.fr</email>
   <active>yes</active>
  </lead>
- <date>2008-10-06</date>
+ <date>2008-10-08</date>
  <version>
-   <release>1.0.1</release>
-   <api>1.0.1</api>
+   <release>1.0.2</release>
+   <api>1.0.2</api>
  </version>
  <stability>
   <release>stable</release>
@@ -54,6 +54,21 @@
  </phprelease>
 
  <changelog>
+ <release>
+   <version>
+    <release>1.0.2</release>
+    <api>1.0.2</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2008-10-08</date>
+   <license>MIT</license>
+   <notes>
+     fixed wrong parameter name
+   </notes>
+  </release> 
   <release>
    <version>
     <release>1.0.1</release>
