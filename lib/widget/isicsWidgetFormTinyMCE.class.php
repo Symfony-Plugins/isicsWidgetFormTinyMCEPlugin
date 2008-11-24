@@ -21,15 +21,17 @@ class isicsWidgetFormTinyMCE extends sfWidgetFormTextarea
    *
    * Available option:
    *
-   *  * tiny_options: Associative array of Tiny MCE options (empty array by default)
-   *  * with_gzip   : Enables GZip compression (false by default)
+   *  * with_gzip      : Enables GZip compression (false by default)
+   *  * tiny_options   : Associative array of Tiny MCE options (empty array by default)
+   *  * tiny_gz_options: Associative array of Tiny MCE Compressor options (empty array by default)
    *
    * @see sfWidgetFormTextarea
    **/    
   protected function configure($options = array(), $attributes = array())
   {
-    $this->addOption('tiny_options', sfConfig::get('app_tiny_mce_default', array()));
-    $this->addOption('with_gzip', false);   
+    $this->addOption('tiny_options',    sfConfig::get('app_tiny_mce_default', array()));
+    $this->addOption('tiny_gz_options', sfConfig::get('app_tiny_mce_gz_default', array()));
+    $this->addOption('with_gzip', false);
   }
   
   /**
@@ -53,18 +55,7 @@ class isicsWidgetFormTinyMCE extends sfWidgetFormTextarea
     
     $id = $this->generateId($name, $value);
 
-    $script_gzip_content = <<<JS
-//<![CDATA[
-  tinyMCE_GZ.init({
-    plugins : 'style,layer,table,save,advhr,advimage,advlink,emotions,iespell,insertdatetime,preview,media,'+ 
-              'searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras',
-    themes : 'simple,advanced',
-    languages : 'fr',
-    disk_cache : true,
-    debug : false
-  });
-//]]>
-JS;
+    $script_gzip_content = '';
     
     $script_content = <<<JS
 //<![CDATA[
@@ -75,6 +66,24 @@ JS;
 //]]>
 JS;
 
+    if ($this->getOption('with_gzip'))
+    {
+      $gz_options = '';
+      foreach ($this->getOption('tiny_gz_options') as $key => $option)
+      {
+        $gz_options .= "\n    ".$key.': \''.$option.'\',';
+      }
+      
+      $script_gzip_content = <<<JS
+//<![CDATA[
+  tinyMCE_GZ.init({{$gz_options}
+    disk_cache : true,
+    debug : false
+  });
+//]]>
+JS;
+    }
+    
     return parent::render($name, $value, $attributes, $errors)
           .($this->getOption('with_gzip') ? 
              $this->renderContentTag('script', $script_gzip_content, array('type' => 'text/javascript')): '')

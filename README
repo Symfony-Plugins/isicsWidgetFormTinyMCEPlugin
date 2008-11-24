@@ -20,6 +20,8 @@ You miss TinyMce since you've started using symfony 1.1? No matter, this widget 
 
 == Usage ==
 
+=== Basic usage ===
+
   You can now use the new widget for building your form:
   {{{
     $this->setWidgets(array(
@@ -53,3 +55,26 @@ You miss TinyMce since you've started using symfony 1.1? No matter, this widget 
       )
     ));
   }}}
+  
+  === GZip compression ===
+   
+   You can use the GZip compressor provided with tinyMCE :
+   {{{
+    $this->setWidgets(array(
+      'my_rich_text' => new isicsWidgetFormTinyMCE(array('with_gzip' => true))
+    ));
+   }}}
+   
+   A `tiny_gz_options` option is provided with the same usage that `tiny_options` :
+
+   Edit your app.yml and add a tiny_mce_gz_default param:
+   {{{
+     tiny_mce_gz:
+       default:
+         plugins:   'style,layer,table,save,advhr,advimage,advlink,emotions,iespell,insertdatetime,preview,media, searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras'
+         languages: 'en'
+         themes:    'simple,advanced'
+   }}}
+  
+  
+  
