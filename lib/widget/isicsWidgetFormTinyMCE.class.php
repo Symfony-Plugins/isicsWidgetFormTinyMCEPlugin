@@ -15,8 +15,6 @@
  **/
 class isicsWidgetFormTinyMCE extends sfWidgetFormTextarea
 {
-  protected $optionsWithoutQuotes = array('setup');
-	
   /**
    * Constructor.
    *
@@ -30,7 +28,8 @@ class isicsWidgetFormTinyMCE extends sfWidgetFormTextarea
    **/    
   protected function configure($options = array(), $attributes = array())
   {
-    $this->addOption('tiny_options',    sfConfig::get('app_tiny_mce_default', array()));
+    $this->addOption('tiny_options', sfConfig::get('app_tiny_mce_default', array()));
+    $this->addOption('options_without_quotes', sfConfig::get('app_tiny_mce_options_without_quotes', array('setup')));    
     $this->addOption('tiny_gz_options', sfConfig::get('app_tiny_mce_gz_default', array()));
     $this->addOption('with_gzip', false);
   }
@@ -51,7 +50,7 @@ class isicsWidgetFormTinyMCE extends sfWidgetFormTextarea
     $options = '';
     foreach ($this->getOption('tiny_options') as $key => $option)
     {
-    	$options .= ",\n    ".$key.': '.(in_array($key, $this->optionsWithoutQuotes) ? $option : '\''.$option.'\'');
+    	$options .= ",\n    ".$key.': '.(in_array($key, $this->getOption('options_without_quotes')) ? $option : '\''.$option.'\'');
     }
     
     $id = $this->generateId($name, $value);
