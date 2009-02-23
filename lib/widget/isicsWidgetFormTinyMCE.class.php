@@ -15,7 +15,8 @@
  **/
 class isicsWidgetFormTinyMCE extends sfWidgetFormTextarea
 {
-  
+  protected $optionsWithoutQuotes = array('setup');
+	
   /**
    * Constructor.
    *
@@ -50,7 +51,7 @@ class isicsWidgetFormTinyMCE extends sfWidgetFormTextarea
     $options = '';
     foreach ($this->getOption('tiny_options') as $key => $option)
     {
-      $options .= ",\n    ".$key.': \''.$option.'\'';
+    	$options .= ",\n    ".$key.': '.(in_array($key, $this->optionsWithoutQuotes) ? $option : '\''.$option.'\'');
     }
     
     $id = $this->generateId($name, $value);
