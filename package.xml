@@ -10,10 +10,10 @@
   <email>contact@isics.fr</email>
   <active>yes</active>
  </lead>
- <date>2008-10-08</date>
+ <date>2009-13-16</date>
  <version>
-   <release>1.0.2</release>
-   <api>1.0.2</api>
+   <release>1.0.3</release>
+   <api>1.0.3</api>
  </version>
  <stability>
   <release>stable</release>
@@ -54,7 +54,23 @@
  </phprelease>
 
  <changelog>
- <release>
+  <release>
+   <version>
+    <release>1.0.3</release>
+    <api>1.0.3</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2008-10-08</date>
+   <license>MIT</license>
+   <notes>
+    * Added GZip compression support.
+    * Added options without quotes protection support.
+   </notes>
+  </release>
+  <release>
    <version>
     <release>1.0.2</release>
     <api>1.0.2</api>
@@ -68,7 +84,7 @@
    <notes>
      fixed wrong parameter name
    </notes>
-  </release> 
+  </release>
   <release>
    <version>
     <release>1.0.1</release>

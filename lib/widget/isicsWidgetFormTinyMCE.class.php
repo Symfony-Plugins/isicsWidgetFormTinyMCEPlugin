@@ -18,11 +18,11 @@ class isicsWidgetFormTinyMCE extends sfWidgetFormTextarea
   /**
    * Constructor.
    *
-   * Available option:
-   *
-   *  * with_gzip      : Enables GZip compression (false by default)
-   *  * tiny_options   : Associative array of Tiny MCE options (empty array by default)
-   *  * tiny_gz_options: Associative array of Tiny MCE Compressor options (empty array by default)
+   * Available options:
+   *  * tiny_options          : Associative array of Tiny MCE options (empty array by default)
+   *  * options_without_quotes: Options without quotes (only "setup" by default)
+   *  * with_gzip             : Enables GZip compression (false by default)
+   *  * tiny_gz_options       : Associative array of Tiny MCE Compressor options (empty array by default)
    *
    * @see sfWidgetFormTextarea
    **/    
@@ -30,8 +30,8 @@ class isicsWidgetFormTinyMCE extends sfWidgetFormTextarea
   {
     $this->addOption('tiny_options', sfConfig::get('app_tiny_mce_default', array()));
     $this->addOption('options_without_quotes', sfConfig::get('app_tiny_mce_options_without_quotes', array('setup')));    
+    $this->addOption('with_gzip', false);    
     $this->addOption('tiny_gz_options', sfConfig::get('app_tiny_mce_gz_default', array()));
-    $this->addOption('with_gzip', false);
   }
   
   /**
@@ -77,16 +77,15 @@ JS;
       $script_gzip_content = <<<JS
 //<![CDATA[
   tinyMCE_GZ.init({{$gz_options}
-    disk_cache : true,
-    debug : false
+    disk_cache: true,
+    debug: false
   });
 //]]>
 JS;
     }
     
     return parent::render($name, $value, $attributes, $errors)
-          .($this->getOption('with_gzip') ? 
-             $this->renderContentTag('script', $script_gzip_content, array('type' => 'text/javascript')): '')
-          .$this->renderContentTag('script', $script_content, array('type' => 'text/javascript'));
+      .($this->getOption('with_gzip') ? $this->renderContentTag('script', $script_gzip_content, array('type' => 'text/javascript')): '')
+      .$this->renderContentTag('script', $script_content, array('type' => 'text/javascript'));
   }
 }
