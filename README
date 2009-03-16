@@ -9,7 +9,7 @@ You miss TinyMce since you've started using symfony 1.1? No matter, this widget 
 
   * Install the plugin
 
-        $ symfony plugin-install http://plugins.symfony-project.com/isicsWidgetFormTinyMCEPlugin
+        $ symfony plugin:install isicsWidgetFormTinyMCEPlugin
 
   * Clear your cache:
 
