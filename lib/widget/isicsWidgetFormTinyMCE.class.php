@@ -20,6 +20,7 @@ class isicsWidgetFormTinyMCE extends sfWidgetFormTextarea
    *
    * Available options:
    *  * tiny_options          : Associative array of Tiny MCE options (empty array by default)
+   *  * tiny_path             : Path to TinyMCE
    *  * options_without_quotes: Options without quotes (only "setup" by default)
    *  * with_gzip             : Enables GZip compression (false by default)
    *  * tiny_gz_options       : Associative array of Tiny MCE Compressor options (empty array by default)
@@ -29,6 +30,7 @@ class isicsWidgetFormTinyMCE extends sfWidgetFormTextarea
   protected function configure($options = array(), $attributes = array())
   {
     $this->addOption('tiny_options', sfConfig::get('app_tiny_mce_default', array()));
+    $this->addOption('tiny_path', sfConfig::get('app_tiny_mce_path', 'tiny_mce'));
     $this->addOption('options_without_quotes', sfConfig::get('app_tiny_mce_options_without_quotes', array('setup')));    
     $this->addOption('with_gzip', false);    
     $this->addOption('tiny_gz_options', sfConfig::get('app_tiny_mce_gz_default', array()));
@@ -44,7 +46,14 @@ class isicsWidgetFormTinyMCE extends sfWidgetFormTextarea
    **/    
   public function render($name, $value = null, $attributes = array(), $errors = array())
   {
-    $javascript = 'tiny_mce/tiny_mce'.($this->getOption('with_gzip') ? '_gzip' : '');
+    $option_path = $this->getOption('tiny_path');
+    
+    if (substr($option_path, -1) != DIRECTORY_SEPARATOR)
+    {
+      $option_path .= DIRECTORY_SEPARATOR;
+    }
+    
+    $javascript = $option_path.'tiny_mce'.($this->getOption('with_gzip') ? '_gzip' : '');
     sfContext::getInstance()->getResponse()->addJavascript($javascript);
 
     $options = '';

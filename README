@@ -52,6 +52,10 @@ And in your PHP code:
         'tiny_options' => sfConfig::get('app_tiny_mce_my_settings', array())
       )
     ));
+    
+### Changing TinyMCE path ###
+    
+You can specify another path to TinyMCE classes by changing value of `path` params in app.yml or `tiny_path` option in widget configuration.
   
 ### Using options without quotes ###
 
